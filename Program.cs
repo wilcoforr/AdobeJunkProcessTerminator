@@ -12,19 +12,23 @@ namespace AdobeCloudSpamProcessKiller
 
             var adobeSpawnedProcessesToKill = new List<Process>();
 
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("node"));
+            var processesToKill = new List<string>() 
+            {
+                "node"
+                ,"adobe update service"
+                ,"adobe desktop service"
+                ,"cclibrary"
+                ,"ccxprocess"
+                ,"coresync"
+                ,"creative cloud"
+                ,"creative cloud helper" //does the above handle this PID too?
+            };
+            
+            foreach (var process in processesToKill)
+            {
+                adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName(process));
+            }
 
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("adobe update service"));
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("adobe desktop service"));
-
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("cclibrary"));
-
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("ccxprocess"));
-
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("coresync"));
-
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("creative cloud"));
-            adobeSpawnedProcessesToKill.AddRange(Process.GetProcessesByName("creative cloud helper"));
 
             if (adobeSpawnedProcessesToKill.Any())
             {
